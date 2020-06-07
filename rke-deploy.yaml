@@ -1,0 +1,22 @@
+cluster_name: "rke"
+ssh_key_path: ~/.ssh/id_rsa
+ssh_agent_auth: true
+
+nodes:
+  - address: TBD
+    role:
+      - controlplane
+      - worker
+      - etcd
+    hostname_override: rke-prod-01
+    user: root
+services:
+  kube-api:
+    service_cluster_ip_range: 192.168.4.0/22
+  kube-controller:
+    cluster_cidr: 192.168.0.0/22
+    service_cluster_ip_range: 192.168.4.0/22
+  kubelet:
+    cluster_dns_server: 192.168.4.10
+ingress:
+  provider: "nginx"
